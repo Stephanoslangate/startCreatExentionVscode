@@ -33,6 +33,7 @@ const vscode = __importStar(require("vscode"));
 const axios_1 = __importDefault(require("axios"));
 const LangageDataTreeProvider_1 = require("./LangageDataTreeProvider");
 const LangageDetails_1 = require("./LangageDetails");
+const FileGenerate_1 = require("./FilleTogenerate/Model/FileGenerate");
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 function activate(context) {
@@ -45,6 +46,10 @@ function activate(context) {
     let disposable = vscode.commands.registerCommand('masseka.helloWorld', () => {
         // The code you place here will be executed every time your command is executed
         // Display a message box to the user
+        // Le QuickPick permet d'afficher une liste d'option à choisir
+        // Dans cette parti on demmande de choisir entre Html et CSS
+        // En fonction de ce que l'ulisateur fera comme choix on effectue une action spécifique
+        // Le choix sera sauvegarder dans la variable result
         vscode.window.showQuickPick(['HTML', 'CSS'], {
             placeHolder: "Votre choix"
         }).then((result) => {
@@ -70,6 +75,8 @@ function activate(context) {
         //vscode.window.showInformationMessage('Bienvenu chez masseka!');
         //vscode.window.showInformationMessage(vscode.workspace.getConfiguration().get('greetings')+ " Codeur");
     });
+    const fileG = new FileGenerate_1.FileGenerate();
+    fileG.createFile2(1);
     //const writeData = Buffer.from('my text data', 'utf8');
     //vscode.workspace.fs.writeFile(fileUri, writeData);
     const treeview = vscode.window.createTreeView('Liste-langages', {
@@ -84,7 +91,8 @@ function activate(context) {
 }
 exports.activate = activate;
 // This method is called when your extension is deactivated
-function deactivate() { }
+function deactivate() {
+}
 exports.deactivate = deactivate;
 function getWebviewContent() {
     return `<!DOCTYPE html>
@@ -95,7 +103,7 @@ function getWebviewContent() {
 	  <title>Cat Coding</title>
   </head>
   <body>
-	<h2>Bonjour et bien chez <strong style='color:red;'>MASSEKA</strong> <strong style='color:yellow;'>Code</strong></h2>
+	<h2><strong style='color:red;'>MASSEKA</strong> <strong style='color:yellow;'>Code</strong> Better</h2>
 	  <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width="300" />
   </body>
   </html>`;

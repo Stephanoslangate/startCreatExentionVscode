@@ -4,6 +4,7 @@ import * as vscode from 'vscode';
 import axios from 'axios';
 import { LangageDataTreeProvider } from './LangageDataTreeProvider';
 import { LangageDetails } from './LangageDetails';
+import { FileGenerate } from './FilleTogenerate/Model/FileGenerate';
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
@@ -18,6 +19,11 @@ export function activate(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand('masseka.helloWorld', () => {
 		// The code you place here will be executed every time your command is executed
 		// Display a message box to the user
+
+		// Le QuickPick permet d'afficher une liste d'option à choisir
+		// Dans cette parti on demmande de choisir entre Html et CSS
+		// En fonction de ce que l'ulisateur fera comme choix on effectue une action spécifique
+		// Le choix sera sauvegarder dans la variable result
 		vscode.window.showQuickPick(['HTML','CSS'],{
 			placeHolder: "Votre choix"
 		}).then((result)=>{
@@ -47,13 +53,15 @@ export function activate(context: vscode.ExtensionContext) {
 
 	});
 
+	const fileG = new FileGenerate();
+	fileG.createFile2(1);
 	//const writeData = Buffer.from('my text data', 'utf8');
 	//vscode.workspace.fs.writeFile(fileUri, writeData);
 	const treeview = vscode.window.createTreeView('Liste-langages',{
 		treeDataProvider: new LangageDataTreeProvider()
 	})
 
-	const langDetails = new LangageDetails()
+	const langDetails = new LangageDetails();
 	treeview.onDidChangeSelection((event)=>{
 		langDetails.openDetail(event.selection[0]);
 	});
@@ -63,7 +71,10 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 // This method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() {
+
+}
+
 
 function getWebviewContent() {
 	return `<!DOCTYPE html>
@@ -74,8 +85,8 @@ function getWebviewContent() {
 	  <title>Cat Coding</title>
   </head>
   <body>
-	<h2>Bonjour et bien chez <strong style='color:red;'>MASSEKA</strong> <strong style='color:yellow;'>Code</strong></h2>
+	<h2><strong style='color:red;'>MASSEKA</strong> <strong style='color:yellow;'>Code</strong> Better</h2>
 	  <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width="300" />
   </body>
   </html>`;
-  }
+}
