@@ -76,7 +76,7 @@ function activate(context) {
         //vscode.window.showInformationMessage(vscode.workspace.getConfiguration().get('greetings')+ " Codeur");
     });
     const fileG = new FileGenerate_1.FileGenerate();
-    fileG.createFile2(1);
+    fileG.createFile(1);
     //const writeData = Buffer.from('my text data', 'utf8');
     //vscode.workspace.fs.writeFile(fileUri, writeData);
     const treeview = vscode.window.createTreeView('Liste-langages', {
