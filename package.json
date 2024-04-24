@@ -12,6 +12,18 @@
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
+    "customEditors": [
+      {
+        "viewType": "massekaEdit.massekaHtml",
+        "displayName": "Masseka Html",
+        "selector": [
+          {
+            "filenamePattern": "*.html"
+          }
+        ],
+        "priority": "default"
+      }
+    ],
     "configuration": [
       {
         "title": "massakacode",
@@ -49,7 +61,8 @@
     "commands": [
       {
         "command": "masseka.helloWorld",
-        "title": "masseka"
+        "title": "masseka",
+        "category": "masseka code"
       }
     ]
   },

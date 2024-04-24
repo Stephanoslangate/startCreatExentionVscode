@@ -52,6 +52,13 @@ function activate(context) {
                 axios_1.default.get("https://api.chucknorris.io/jokes/random").then((response) => {
                     vscode.window.showInformationMessage(response.data.value);
                 });
+                // Create and show a new webview
+                const panel = vscode.window.createWebviewPanel('Masseka', // Identifies the type of the webview. Used internally
+                'masseka code', // Title of the panel displayed to the user
+                vscode.ViewColumn.One, // Editor column to show the new webview panel in.
+                {} // Webview options. More on these later.
+                );
+                panel.webview.html = getWebviewContent();
             }
             else {
                 /* axios.get("https://backend-omega-seven.vercel.app/api/getjoke").then((response) =>{
@@ -63,6 +70,8 @@ function activate(context) {
         //vscode.window.showInformationMessage('Bienvenu chez masseka!');
         //vscode.window.showInformationMessage(vscode.workspace.getConfiguration().get('greetings')+ " Codeur");
     });
+    //const writeData = Buffer.from('my text data', 'utf8');
+    //vscode.workspace.fs.writeFile(fileUri, writeData);
     const treeview = vscode.window.createTreeView('Liste-langages', {
         treeDataProvider: new LangageDataTreeProvider_1.LangageDataTreeProvider()
     });
@@ -77,4 +86,18 @@ exports.activate = activate;
 // This method is called when your extension is deactivated
 function deactivate() { }
 exports.deactivate = deactivate;
+function getWebviewContent() {
+    return `<!DOCTYPE html>
+  <html lang="en">
+  <head>
+	  <meta charset="UTF-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <title>Cat Coding</title>
+  </head>
+  <body>
+	<h2>Bonjour et bien chez <strong style='color:red;'>MASSEKA</strong> <strong style='color:yellow;'>Code</strong></h2>
+	  <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width="300" />
+  </body>
+  </html>`;
+}
 //# sourceMappingURL=extension.js.map
