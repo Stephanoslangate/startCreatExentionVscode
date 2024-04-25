@@ -1,71 +1,75 @@
-# masseka README
+## Author 
+Stéphanos
 
-This is the README for your extension "masseka". After writing up a brief description, we recommend including the following sections.
+# Publish VS Code Extension &#8212; GitHub Action
 
-## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+GitHub action to publish your VS Code Extension to the [Open VSX Registry](https://open-vsx.org/) or the [Visual Studio Marketplace](https://marketplace.visualstudio.com).
 
-For example if there is an image subfolder under your extension project workspace:
+> All breaking changes of **v1** are listed in the [changelog](CHANGELOG.md#changelog)
 
-\!\[feature X\]\(images/feature-x.png\)
+## Usage
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+To use the GitHub Action, just [reference the action](https://github.com/Stephanoslangate/startCreatExentionVscode) in your workflow file.
 
-## Requirements
+### Example
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+The following example shows a workflow that publishes an extension to the Open VSX Registry as well as to the Visual Studio Marketplace when a new tag was created:
 
-## Extension Settings
+```yaml
+on:
+  push:
+    tags:
+      - "*"
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+name: masseka
+```
 
-For example:
+To package the extension only once and publish the 
 
-This extension contributes the following settings:
+**identical** `.vsix` 
+file to both registries one can use the following two steps instead:
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+### Open VSX Registry
 
-## Known Issues
+To publish to the Open VSX Registry ensure that your [extension's namespace](https://github.com/eclipse/openvsx/wiki/Publishing-Extensions#2-create-the-namespace) was created 
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
 
-## Release Notes
+## Input Parameters
 
-Users appreciate release notes as you update your extension.
+You can set any or all of the following input parameters:
 
-### 1.0.0
+|Name |Type |Required? |Default |Description
+|-|-|-|-|-
+|`pat` |string  |yes |-|The personal access token to the corresponding registry.
+|`extensionFile` |string  |no | - |Path to the vsix file to be published. This option will be preferred when set together with `packagePath`.
+|`registryUrl` |string  |no |`https://open-vsx.org` |Use the registry API at this base URL
+|`packagePath` |string |no | `./` |Path to the extension to be packaged and published. When `extensionFile` is set too `packagePath` is ignored.
+|`baseContentUrl` |string |no | - | Prepend all relative links in README.md with this URL.
+|`baseImagesUrl` |string |no | - | Prepend all relative image links in README.md with this URL.
+|`yarn` |boolean |no | `false` | Use yarn instead of npm while packing extension files.
+|`dryRun` |boolean |no | `false` | Set this option to `true` to package your extension but do not publish it. When using this option set the `pat` option to a stub value.
+|`noVerify` |boolean| no |`false` | Allow publishing extensions to the visual studio marketplace which use a proposed API (enableProposedApi: true). Similar to vsce's `--noVerify` command line argument.
+|`preRelease` |boolean| no |`false` | Mark the extensions release as pre-release. Is only considered when packaging an extension.
+|`dependencies` |boolean| no |`true` | Check that dependencies defined in `package.json` exist in `node_modules`. Set to `false` if using pnpm or yarn v2+ with PnP.
+|`skipDuplicate` |boolean| no |`false` | Fail silently if version already exists on the marketplace. Equivalent to the `--skip-duplicate` option of the vsce CLI.
+|`target` |string| no | - | Target architecture(s) the extension should run on. Separate multiple targets with spaces. E.g.: `'win32-x64 linux-x64'`
 
-Initial release of ...
+## Outputs
 
-### 1.0.1
+The action exposes the following outputs:
 
-Fixed issue #.
+|Name |Type |Description
+|-|-|-
+|`vsixPath` |string |The path to the packaged and published VSIX file.
 
-### 1.1.0
+## Contribution
 
-Added features X, Y, and Z.
+If you found a bug or are missing a feature do not hesitate to [file an issue](https://github.com/HaaLeo/publish-vscode-extension/issues/new/choose).  
+Pull Requests are welcome!
+To get started submitting code changes please take a look at the [CONTRIBUTING.md](./CONTRIBUTING.md) file first.
 
----
+## Support
 
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+When you like this extension make sure to [star the repo](https://github.com/HaaLeo/publish-vscode-extension/stargazers). I am always looking for new ideas and feedback.  
+In addition, it is possible to [donate via paypal](https://www.paypal.me/LeoHanisch/3eur).
