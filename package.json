@@ -2,11 +2,12 @@
   "name": "masseka",
   "displayName": "masseka",
   "description": "Une premiere extension",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "masseka",
   "author": {
     "name": "Stephanos"
   },
+  "icon": "./assets/images/mc.png",
   "repository": {
 		"type": "git",
 		"url": "https://github.com/Stephanoslangate/startCreatExentionVscode.git"
@@ -49,7 +50,7 @@
         {
           "id": "langage-views",
           "title": "Masseka",
-          "icon": "./assets/images/mc.png"
+          "icon": "./out/extension.js"
         }
       ]
     },
