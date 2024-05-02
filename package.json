@@ -5,7 +5,7 @@
   "version": "0.0.3",
   "publisher": "masseka",
   "author": {
-    "name": "Stephanos"
+    "name": "Stéphanos"
   },
   "icon": "./assets/images/mc.png",
   "repository": {
@@ -18,7 +18,9 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onLanguage:markdown"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "customEditors": [
@@ -27,7 +29,7 @@
         "displayName": "Masseka Html",
         "selector": [
           {
-            "filenamePattern": "*.html"
+            "filenamePattern": "*.scratch"
           }
         ],
         "priority": "default"
